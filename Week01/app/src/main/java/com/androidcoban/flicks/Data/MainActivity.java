@@ -77,10 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<PlayNowMovies> call, @NonNull Response<PlayNowMovies> response) {
                 if (response.body() != null) {
-                    //adapterMovies = new AdapterMovies(MainActivity.this);
                     adapterMovies.setData(response.body().getMovies());
-//                    recyclerView.setAdapter(adapterMovies);
-//                    adapterMovies.notifyDataSetChanged();
                     recyclerView.setAdapter(adapterMovies);
                 }
             }

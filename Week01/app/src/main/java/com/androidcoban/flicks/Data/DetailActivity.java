@@ -35,9 +35,9 @@ public class DetailActivity extends YouTubeBaseActivity {
 
     MoviesApi movie;
 
-    @BindView(R.id.img_backdrop_detail) ImageView img_backdrop_detail;
+//    @BindView(R.id.img_backdrop_detail) ImageView img_backdrop_detail;
 
-    @BindView(R.id.img_poster_detail) ImageView img_poster_detail;
+   // @BindView(R.id.img_poster_detail) ImageView img_poster_detail;
 
     @BindView(R.id.tv_detail_title) TextView tv_detail_title;
     @BindView(R.id.tv_detail_release_date) TextView tv_detail_release_date;
@@ -68,8 +68,8 @@ public class DetailActivity extends YouTubeBaseActivity {
     private void setDetailInformation() {
         Glide.with(DetailActivity.this)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.backdropplaceholder))
-                .load(movie.getBackdropPath())
-                .into(img_backdrop_detail);
+                .load(movie.getBackdropPath());
+                //.into(img_backdrop_detail);
         tv_detail_title.setText(movie.getTitle());
 
         Glide.with(DetailActivity.this)
@@ -77,7 +77,7 @@ public class DetailActivity extends YouTubeBaseActivity {
                 .load(movie.getPosterPath())
                 .apply(RequestOptions.bitmapTransform(
                         new RoundedCornersTransformation(111, 11, RoundedCornersTransformation.CornerType.ALL)))
-                .into(img_poster_detail);
+               ; //.into(img_poster_detail);
 
         rating_bar.setRating(movie.getVoteAverage().floatValue());
         rating_bar.setIsIndicator(true);
