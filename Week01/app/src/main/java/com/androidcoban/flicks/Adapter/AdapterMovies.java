@@ -106,7 +106,7 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
                     break;
             }
         } else {
-            itemView = layoutInflater.inflate(R.layout.item_rv_film_land, viewGroup, false);
+            itemView = layoutInflater.inflate(R.layout.item_rv_popular_film, viewGroup, false);
         }
         return new ViewHolder(itemView);
     }
