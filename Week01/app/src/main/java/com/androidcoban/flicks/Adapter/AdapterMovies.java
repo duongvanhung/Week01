@@ -47,12 +47,12 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
             MoviesApi movie = this.movies.get(i);
 
             String posterPath = movie.getPosterPath();
-           // String updatePosterPath = createImageURL(posterPath, ApiSources.POSTER_SIZE);
-            //movie.setPosterPath(updatePosterPath);
+            String updatePosterPath = createImageURL(posterPath, ApiSources.POSTER_SIZE);
+            movie.setPosterPath(updatePosterPath);
 
             String backdropPath = movie.getBackdropPath();
-            //String updateBackdropPath = createImageURL(backdropPath, ApiSources.BACKDROP_SIZE);
-           // movie.setBackdropPath(updateBackdropPath);
+            String updateBackdropPath = createImageURL(backdropPath, ApiSources.BACKDROP_SIZE);
+            movie.setBackdropPath(updateBackdropPath);
         }
         notifyDataSetChanged();
     }
@@ -156,7 +156,7 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
     private String createImageURL(String path, String size) {
         if (path == null) return null;
         StringBuilder builder = new StringBuilder();
-       // builder.append(ApiSources.BASE_IMAGE_URL);
+        builder.append(ApiSources.BASE_IMAGE_URL);
         builder.append(size);
         builder.append(path);
         return builder.toString();

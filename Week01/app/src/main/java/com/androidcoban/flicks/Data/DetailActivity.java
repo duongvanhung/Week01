@@ -47,7 +47,7 @@ public class DetailActivity extends YouTubeBaseActivity {
 
     @BindView(R.id.youtube_player) YouTubePlayerView youTubePlayerView;
 
-        private static final String API_KEY_YOUTUBE = "AIzaSyDMIMloVYigVR8XyAZ5KQKAy7RXleGzNSE";
+        private static final String API_KEY_YOUTUBE = "AIzaSyAPhy7DGbkYMKjzj_q27y0UUoU1u0jbEgQ ";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
