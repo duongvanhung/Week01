@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-
     List<MoviesApi> list_movies;
 
     @BindView(R.id.recycler_view)
@@ -38,10 +36,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-
     AdapterMovies adapterMovies;
 
-    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,27 +45,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        if (list_movies == null) {
-        init();
-        getAllMovies();
-       } else {
-          adapterMovies.setData(list_movies);
-        }
-
+        while (list_movies == null){
+            init();
+            getAllMovies();
+        }adapterMovies.setData(list_movies);
     }
 
     /**
-     * Get movie data from API
+     * Get movie data from Database API
      */
     void getAllMovies() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiSources.Base_URL)
+                .baseUrl(ApiSources.Base_Url)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                .build(); /* To send out network requests to an API */
 
-        ApiSources retrofitClient = retrofit.create(ApiSources.class);
-        Call<PlayNowMovies> call = retrofitClient.getPlayNowMovies(ApiSources.Api_key);
+        ApiSources apiService = retrofit.create(ApiSources.class); /* Accessing the API */
+
+        Call<PlayNowMovies> call = apiService.getPlayNowMovies(ApiSources.Api_Key);
         call.enqueue(new Callback<PlayNowMovies>() {
             @Override
             public void onResponse(@NonNull Call<PlayNowMovies> call, @NonNull Response<PlayNowMovies> response) {
@@ -79,9 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-
             @Override
-            public void onFailure(@NonNull Call<PlayNowMovies> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<PlayNowMovies> call,  Throwable t) {
                 Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
@@ -95,10 +88,11 @@ public class MainActivity extends AppCompatActivity {
      */
     void init() {
         list_movies = new ArrayList<>();
-
+        //Performance
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        // Attach layout manager to the RecyclerView
         recyclerView.setLayoutManager(layoutManager);
         adapterMovies = new AdapterMovies(MainActivity.this);
         adapterMovies.setData(list_movies);

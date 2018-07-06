@@ -1,18 +1,14 @@
 package com.androidcoban.flicks.Data;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.support.v7.app.AlertDialog;
-
 
 import com.androidcoban.flicks.Api.ApiSources;
 import com.androidcoban.flicks.Models.MoviesApi;
 import com.androidcoban.flicks.Models.TrailerList;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -22,7 +18,6 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,10 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DetailActivity extends YouTubeBaseActivity {
 
     MoviesApi movie;
-
-//    @BindView(R.id.img_backdrop_detail) ImageView img_backdrop_detail;
-
-   // @BindView(R.id.img_poster_detail) ImageView img_poster_detail;
 
     @BindView(R.id.tv_detail_title) TextView tv_detail_title;
     @BindView(R.id.tv_detail_release_date) TextView tv_detail_release_date;
@@ -64,28 +55,16 @@ public class DetailActivity extends YouTubeBaseActivity {
      * Set up detail information of movie
      */
     private void setDetailInformation() {
-        Glide.with(DetailActivity.this)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.backdropplaceholder))
-                .load(movie.getBackdropPath());
-                //.into(img_backdrop_detail);
+
         tv_detail_title.setText(movie.getTitle());
-
-        Glide.with(DetailActivity.this)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.posterplaceholder))
-                .load(movie.getPosterPath())
-                .apply(RequestOptions.bitmapTransform(
-                        new RoundedCornersTransformation(111, 11, RoundedCornersTransformation.CornerType.ALL)))
-               ; //.into(img_poster_detail);
-
         rating_bar.setRating(movie.getVoteAverage().floatValue());
         rating_bar.setIsIndicator(true);
         tv_detail_release_date.setText(movie.getReleaseDate());
-
         tv_overview_detail.setText(movie.getOverview());
     }
 
     /**
-     * Initialize youtube player
+     *  The fragment by ID and then initialize the video player:
      * @param source source of video on youtube.com
      */
     public void initYouTubePlayer(final String source) {
@@ -93,7 +72,7 @@ public class DetailActivity extends YouTubeBaseActivity {
                 new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                        if (movie.getVoteAverage() >= ApiSources.VOTE_AVERAGE)
+                        if (movie.getVoteAverage() >= ApiSources.Vote_Tb)
                             youTubePlayer.loadVideo(source); // .loadVideo: Play now - .cueVideo: only load
                         else youTubePlayer.cueVideo(source);
                     }
@@ -111,15 +90,15 @@ public class DetailActivity extends YouTubeBaseActivity {
     public void getTrailer() {
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(ApiSources.Base_URL)
+                .baseUrl(ApiSources.Base_Url)
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 
-        ApiSources retrofitClient = retrofit.create(ApiSources.class);
-        Call<TrailerList> call = retrofitClient.getTrailer(movie.getId(), ApiSources.Api_key);
+        ApiSources apiService = retrofit.create(ApiSources.class);
+        Call<TrailerList> call = apiService.getTrailer(movie.getId(), ApiSources.Api_Key);
         call.enqueue(new Callback<TrailerList>() {
             @Override
-            public void onResponse(Call<TrailerList> call, Response<TrailerList> response) {
+            public void onResponse(@NonNull Call<TrailerList> call, @NonNull Response<TrailerList> response) {
                 if (response.body() != null) {
                     int size = response.body().getYoutube().size();
                     String source = response.body().getYoutube().get(new Random().nextInt(size)).getSource();
@@ -128,7 +107,7 @@ public class DetailActivity extends YouTubeBaseActivity {
             }
 
             @Override
-            public void onFailure(Call<TrailerList> call, Throwable t) {
+            public void onFailure(@NonNull Call<TrailerList> call, Throwable t) {
 
             }
         });

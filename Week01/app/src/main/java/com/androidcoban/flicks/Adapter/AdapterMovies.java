@@ -21,7 +21,10 @@ import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+
+
 public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolder> {
+    /* Store a member variable for the contacts */
     private List<MoviesApi> movies;
     private Context context;
     private ClickItem clickItem;
@@ -29,7 +32,7 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
     private final int POPULAR_MOVIE = 0, REGULAR_MOVIE = 1;
 
     /**
-     * Constructor new a MovieAdapter with Context
+     * Pass in the contact array into the constructor
      * @param context Context
      */
     public AdapterMovies(Context context) {
@@ -47,11 +50,11 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
             MoviesApi movie = this.movies.get(i);
 
             String posterPath = movie.getPosterPath();
-            String updatePosterPath = createImageURL(posterPath, ApiSources.POSTER_SIZE);
+            String updatePosterPath = createImageURL(posterPath, ApiSources.Poster_Size);
             movie.setPosterPath(updatePosterPath);
 
             String backdropPath = movie.getBackdropPath();
-            String updateBackdropPath = createImageURL(backdropPath, ApiSources.BACKDROP_SIZE);
+            String updateBackdropPath = createImageURL(backdropPath, ApiSources.Backdrop_Size);
             movie.setBackdropPath(updateBackdropPath);
         }
         notifyDataSetChanged();
@@ -62,7 +65,7 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
      */
     public void clearData() {
         movies.clear();
-        notifyDataSetChanged();
+        notifyDataSetChanged(); /* Notify that the dataset has changed */
     }
 
 
@@ -75,34 +78,35 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
     }
 
     /**
-     * Classify item view type
+     * Returns the view type of the item at position for the purposes of view recycling
      * @param position position of movie in movies list
      * @return type of movie in int type
      */
     @Override
     public int getItemViewType(int position) {
-        if (movies.get(position).getVoteAverage() >= ApiSources.VOTE_AVERAGE) {
+        if (movies.get(position).getVoteAverage() >= ApiSources.Vote_Tb) {
             return POPULAR_MOVIE;
         } else return REGULAR_MOVIE;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View itemView;
         if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             switch (viewType) {
                 case REGULAR_MOVIE:
                 default:
-                    itemView = layoutInflater.inflate(R.layout.item_rv_regular_film, parent, false);
+                    itemView = layoutInflater.inflate(R.layout.item_rv_regular_film, viewGroup, false);
                     break;
                 case POPULAR_MOVIE:
-                    itemView = layoutInflater.inflate(R.layout.item_rv_popular_film, parent, false);
+                    itemView = layoutInflater.inflate(R.layout.item_rv_popular_film, viewGroup, false);
                     break;
             }
         } else {
-            itemView = layoutInflater.inflate(R.layout.item_rv_film_land, parent, false);
+            itemView = layoutInflater.inflate(R.layout.item_rv_film_land, viewGroup, false);
         }
         return new ViewHolder(itemView);
     }
@@ -156,7 +160,7 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
     private String createImageURL(String path, String size) {
         if (path == null) return null;
         StringBuilder builder = new StringBuilder();
-        builder.append(ApiSources.BASE_IMAGE_URL);
+        builder.append(ApiSources.Base_image_Url);
         builder.append(size);
         builder.append(path);
         return builder.toString();
