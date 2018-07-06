@@ -3,14 +3,12 @@ package com.androidcoban.flicks.Data;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.support.v7.app.AlertDialog;
 
 
 import com.androidcoban.flicks.Api.ApiSources;
-import com.androidcoban.flicks.Api.CheckNetwork;
 import com.androidcoban.flicks.Models.MoviesApi;
 import com.androidcoban.flicks.Models.TrailerList;
 import com.bumptech.glide.Glide;
@@ -111,7 +109,6 @@ public class DetailActivity extends YouTubeBaseActivity {
      * call api and shuffle a trailer
      */
     public void getTrailer() {
-        showAlertDialogNoInternetConnection();
 
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(ApiSources.Base_URL)
@@ -138,31 +135,11 @@ public class DetailActivity extends YouTubeBaseActivity {
     }
 
 
-    /**
-     * show a dialog if no internet connection
-     */
-    public void showAlertDialogNoInternetConnection() {
-        if (!CheckNetwork.isInternetConnection(DetailActivity.this))
-            alertDialogNoInternetConnection();
+
     }
 
-    /**
-     * set up dialog no internet connection
-     */
-    public void alertDialogNoInternetConnection() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
-        builder.setTitle(getString(R.string.connection_failed));
-        builder.setMessage(getString(R.string.no_internet));
-        builder.setPositiveButton(getString(R.string.try_again), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getTrailer();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-}
+
+
 
 
 

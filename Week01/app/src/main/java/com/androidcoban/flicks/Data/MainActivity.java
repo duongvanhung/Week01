@@ -1,6 +1,5 @@
 package com.androidcoban.flicks.Data;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 import com.androidcoban.flicks.Adapter.AdapterMovies;
 import com.androidcoban.flicks.Adapter.ClickItem;
 import com.androidcoban.flicks.Api.ApiSources;
-import com.androidcoban.flicks.Api.CheckNetwork;
 import com.androidcoban.flicks.Models.MoviesApi;
 import com.androidcoban.flicks.Models.PlayNowMovies;
 
@@ -64,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
      * Get movie data from API
      */
     void getAllMovies() {
-        showAlertDialogNoInternetConnection();
-        showAlertDialogNoInternetConnection();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiSources.Base_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -154,31 +151,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    /**
-     * show a dialog if no internet connection
-     */
-    public void showAlertDialogNoInternetConnection() {
-        if (!CheckNetwork.isInternetConnection(MainActivity.this))
-            alertDialogNoInternetConnection();
-    }
 
-    /**
-     * a dialog: no internet connection
-     */
-    public void alertDialogNoInternetConnection() {
-        builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(getString(R.string.connection_failed));
-        builder.setMessage(getString(R.string.no_internet));
-        builder.setPositiveButton(getString(R.string.try_again), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                init();
-                getAllMovies();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
+
+
 }
 
 
