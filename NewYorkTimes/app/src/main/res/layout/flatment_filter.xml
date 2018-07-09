@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/beginDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:text="Begin Date"/>
+
+         <EditText
+             android:id="@+id/begin_dates"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:minLines="0"
+             android:layout_weight="5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sortOder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/beginDate"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:text="Sort Order"/>
+            <Spinner
+                android:id="@+id/spSort"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:entries="@array/sort_order">
+            </Spinner>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/itemValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sortOder"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/newDest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:text ="News dest values"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/newDest"
+            android:layout_weight= "5"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/tvArts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="Arts"/>
+            <CheckBox
+                android:id="@+id/tvFashionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fashion_style"/>
+            <CheckBox
+                android:id="@+id/tvSport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/Sports"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemValue"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnClearFilter"
+            style="@style/article_date_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/holo_orange_dark"
+            android:textColor="#000000"
+            android:text ="Clear filter"/>
+
+        <Button
+            android:id="@+id/btnApplyFilter"
+            style="@style/article_date_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#000000"
+            android:background="@android:color/holo_orange_dark"
+            android:text="Apply filter"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
