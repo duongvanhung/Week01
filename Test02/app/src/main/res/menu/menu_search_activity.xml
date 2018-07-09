@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".activities.SearchActivity">
+
+    <item android:id="@+id/action_search"
+        android:orderInCategory="5"
+        android:title="Search"
+        android:icon="@drawable/ic_magnify"
+        app:showAsAction="always|collapseActionView"
+            app:actionViewClass="android.support.v7.widget.SearchView" />
+
+    <item android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter_outline"
+        android:orderInCategory="10"
+        android:title="Filter"
+        app:showAsAction="always|collapseActionView" />
+</menu>

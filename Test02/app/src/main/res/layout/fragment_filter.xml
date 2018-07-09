@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/beginDateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textColor="#389854"
+            android:textStyle="bold"
+            android:text="Begin Date" />
+
+        <EditText
+            android:id="@+id/etBeginDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minLines="0"
+            android:layout_weight="5" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sortOrderContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/beginDateContainer"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:layout_weight="3"
+            android:textColor="#389854"
+            android:textStyle="bold"
+            android:text="Sort order" />
+
+        <Spinner
+            android:id="@+id/spSort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:entries="@array/sort_order" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/newsDeskValuesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sortOrderContainer"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvNewsDesk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
+            android:textColor="#389854"
+            android:textStyle="bold"
+            android:layout_weight="3"
+            android:text="News desk values" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvNewsDesk"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/chkArts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arts" />
+
+            <CheckBox
+                android:id="@+id/chkFashion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fashion_style" />
+
+            <CheckBox
+                android:id="@+id/chkSports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sports" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newsDeskValuesContainer"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnClearFilter"
+            style="@style/article_date_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#389854"
+            android:textColor="#FFFFFF"
+            android:layout_weight="1"
+            android:text="Clear filter" />
+
+        <Button
+            android:id="@+id/btnApplyFilter"
+            style="@style/article_date_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#389854"
+            android:textColor="#FFFFFF"
+            android:text="Apply Filter" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

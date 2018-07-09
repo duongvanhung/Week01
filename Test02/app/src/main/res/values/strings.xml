@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">NYTimesSearch</string>
+    <string name="search">SEARCH</string>
+    <string name="hint_search"> Searching</string>
+    <string name="filter">Filter</string>
+    <string name="begin_date">Begin Date</string>
+    <string name="fashion_style"><![CDATA[Fashion&Style]]></string>
+    <string name="error_loading">Can not loading the articles.</string>
+    <string name="button_clear">Clear</string>
+    <string name="arts">Arts</string>
+    <string name="sports">Sports</string>
+    <string name="news_desk_values">News Desk Values</string>
+
+    <string-array name="sort_order">
+        <item>newest</item>
+        <item>oldest</item>
+    </string-array>
+
+</resources>
