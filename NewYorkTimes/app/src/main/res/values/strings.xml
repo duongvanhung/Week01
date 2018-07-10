@@ -7,9 +7,10 @@
     <string name="Sort_oder">Sort Oder</string>
     <string name="News_Dest_values">News Dest Values</string>
     <string name="Arts">Arts</string>
-    <string name="fashion_style"><![CDATA[Fashion&Style]]></string>
+   <string name="fashion_style"><![CDATA[Fashion&Style]]></string>
     <string name="Sports">Sports</string>
     <string name="error_loading">Can not loading the articles.</string>
+
 
     <!-- Sort_Order-->
      <string-array name="sort_order">

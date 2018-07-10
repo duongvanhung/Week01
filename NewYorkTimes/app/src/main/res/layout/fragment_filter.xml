@@ -110,8 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/itemValue"
         android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal" >
         <Button
             android:id="@+id/btnClearFilter"
             style="@style/article_date_author"
@@ -130,7 +129,7 @@
             android:layout_weight="1"
             android:textColor="#000000"
             android:background="@android:color/holo_orange_dark"
-            android:text="Apply filter"/>
+            android:text="Apply filter" />
 
     </LinearLayout>
 
