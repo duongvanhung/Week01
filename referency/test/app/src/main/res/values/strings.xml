@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">The New York Times</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="begin_date_hint">MM/DD/YY</string>
+    <string name="type">Type</string>
+    <string name="ignore_begin_date">Ignore begin date</string>
+    <string name="news_desk">News Desk</string>
+    <string name="begin_date">Begin date:</string>
+    <string name="search_hint">Search NY Times ...</string>
+
+
+    <string-array name="sort_order">
+        <item>Oldest</item>
+        <item>Newest</item>
+    </string-array>
+</resources>

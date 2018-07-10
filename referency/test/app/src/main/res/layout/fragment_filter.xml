@@ -1,0 +1,119 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="filters" type="com.example.usphuong.thenewyorktimes.models.SearchFilters"/>
+    </data>
+
+    <FrameLayout
+        tools:context="com.coremantra.tutorial.thenewyorktimes.fragments.SearchFilterFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:padding="5dp"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tvBeginDate"
+                style="@style/HighlightText"
+                android:text="@string/begin_date" />
+
+            <EditText
+                android:id="@+id/etBeginDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/begin_date_hint"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/tvDisableBeginDate"
+                style="@style/HighlightText"
+
+                android:text="@string/news_desk" />
+
+            <CheckBox
+                android:id="@+id/cbNoBeginDate"
+                android:layout_width="150dp"
+                android:layout_height="33dp"
+                android:checked="@{filters.ignoreBeginDate}"
+                android:text="@string/ignore_begin_date"
+                tools:layout_editor_absoluteX="53dp"
+                tools:layout_editor_absoluteY="266dp" />
+
+            <TextView
+                android:id="@+id/tvNewsDesk"
+                style="@style/HighlightText"
+                android:text="@string/type" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </RelativeLayout>
+            <CheckBox
+                android:id="@+id/cbArts"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:checked="@{filters.arts}"
+                android:text="Arts" />
+
+            <CheckBox
+                android:id="@+id/cbFashion"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:checked="@{filters.fashion}"
+
+                android:text="Fashion" />
+
+            <CheckBox
+                android:id="@+id/cbStyle"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:checked="@{filters.style}"
+
+                android:text="Style" />
+
+            <CheckBox
+                android:id="@+id/cbSport"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:checked="@{filters.sport}"
+
+                android:text="Sport" />
+
+
+            <TextView
+                android:id="@+id/tvSort"
+                style="@style/HighlightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sort_order" />
+
+            <Spinner
+                android:id="@+id/spSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/sort_order" />
+
+            <Button
+                android:id="@+id/btSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@color/highlight"
+                android:text="save"
+                android:textColor="@android:color/white"
+ />
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</layout>
