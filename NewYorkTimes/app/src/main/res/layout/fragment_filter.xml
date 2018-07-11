@@ -22,7 +22,7 @@
             android:text="Begin Date"/>
 
          <EditText
-             android:id="@+id/begin_dates"
+             android:id="@+id/begindates"
              android:layout_width="0dp"
              android:layout_height="wrap_content"
              android:minLines="0"

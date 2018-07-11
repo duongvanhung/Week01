@@ -9,16 +9,16 @@ public class Response {
 
     @SerializedName("docs")
     @Expose
-    private List<Doc> docs = null;
+    private List<Article> docs = null;
     @SerializedName("meta")
     @Expose
     private Meta meta;
 
-    public List<Doc> getDocs() {
+    public List<Article> getDocs() {
         return docs;
     }
 
-    public void setDocs(List<Doc> docs) {
+    public void setDocs(List<Article> docs) {
         this.docs = docs;
     }
 

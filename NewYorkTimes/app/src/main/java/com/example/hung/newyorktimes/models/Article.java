@@ -1,11 +1,13 @@
 package com.example.hung.newyorktimes.models;
 
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Doc {
+import java.util.Date;
+import java.util.List;
+
+public class Article {
 
     @SerializedName("web_url")
     @Expose
@@ -16,15 +18,13 @@ public class Doc {
     @SerializedName("print_page")
     @Expose
     private String printPage;
-    @SerializedName("blog")
-    @Expose
-    private Blog blog;
+
     @SerializedName("source")
     @Expose
     private String source;
     @SerializedName("multimedia")
     @Expose
-    private List<Multimedium> multimedia = null;
+    private List<Multimedium> multimedia ;
     @SerializedName("headline")
     @Expose
     private Headline headline;
@@ -33,7 +33,7 @@ public class Doc {
     private List<Keyword> keywords = null;
     @SerializedName("pub_date")
     @Expose
-    private String pubDate;
+    private Date pubDate;
     @SerializedName("document_type")
     @Expose
     private String documentType;
@@ -83,13 +83,6 @@ public class Doc {
         this.printPage = printPage;
     }
 
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
-    }
 
     public String getSource() {
         return source;
@@ -123,11 +116,11 @@ public class Doc {
         this.keywords = keywords;
     }
 
-    public String getPubDate() {
+    public Date getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(String pubDate) {
+    public void setPubDate(Date pubDate) {
         this.pubDate = pubDate;
     }
 
@@ -194,5 +187,14 @@ public class Doc {
     public void setSectionName(String sectionName) {
         this.sectionName = sectionName;
     }
+    public boolean hasImages() {
+        return this.multimedia != null && this.multimedia.size() > 0;
+    }
 
+    public Multimedium getFirstImageFromMultimedia() {
+        if (this.multimedia != null && this.multimedia.size() > 0) {
+            return this.multimedia.get(0);
+        }
+        return null;
+    }
 }
