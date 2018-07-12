@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">NewYorkTimesSearch</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="hint_search">Searching</string>
+    <string name="Begin_date">Begin Date</string>
+    <string name="Sort_oder">Sort Oder</string>
+    <string name="News_Dest_values">News Dest Values</string>
+    <string name="Arts">Arts</string>
+   <string name="fashion_style"><![CDATA[Fashion&Style]]></string>
+    <string name="Sports">Sports</string>
+    <string name="error_loading">Can not loading the articles.</string>
+
+
+    <!-- Sort_Order-->
+     <string-array name="sort_order">
+         <item>Newest</item>
+         <item>Oldest</item>
+     </string-array>
+</resources>
