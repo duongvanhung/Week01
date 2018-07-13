@@ -17,11 +17,10 @@
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/vertical_margin"
+            android:layout_height="70dp"
+            android:paddingTop="16dp"
             android:scaleType="center"
-            android:gravity="center"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_image" />
 
         <TextView
             android:id="@+id/tvTitle"

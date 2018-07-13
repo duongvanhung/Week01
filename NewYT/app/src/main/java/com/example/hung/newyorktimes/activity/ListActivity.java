@@ -13,6 +13,7 @@ import org.parceler.Parcels;
 
 
 public class ListActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -21,14 +22,17 @@ public class ListActivity extends AppCompatActivity {
         WebView webView = (WebView) findViewById(R.id.tvArticles);
 
         final Article article = (Article) Parcels.unwrap(getIntent().getParcelableExtra("article"));
-        webView.setWebViewClient(new WebViewClient(){
+
+        webView.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
-                view.loadUrl(article.getWebUrl());
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                view.loadUrl(article.getWebURL());
                 return true;
             }
         });
-        webView.loadUrl(article.getWebUrl());
+        webView.loadUrl(article.getWebURL());
 
     }
+
 }
+

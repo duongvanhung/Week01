@@ -7,27 +7,31 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
+
 public class ArticleResponse {
 
     @SerializedName("docs")
     ArrayList<Article> articles;
 
-    JSONArray articlesJsonResults;
+    JSONArray articleJsonResults;
 
-    public ArticleResponse(){
+    public ArticleResponse() {
+
     }
 
-    public ArrayList<Article> getArticles(){
+    public ArrayList<Article> getArticles() {
         return articles;
     }
-    public void setArticles(ArrayList<Article> articles){
+
+    public void setArticles(ArrayList<Article> articles) {
         this.articles = articles;
     }
-    public JSONArray getArticlesJsonResults(){
-        return articlesJsonResults;
-    }
-    public  void setArticlesJsonResults(JSONArray articlesJsonResults){
-        this.articlesJsonResults = articlesJsonResults;
+
+    public JSONArray getArticleJsonResults() {
+        return articleJsonResults;
     }
 
+    public void setArticleJsonResults(JSONArray articleJsonResults) {
+        this.articleJsonResults = articleJsonResults;
+    }
 }

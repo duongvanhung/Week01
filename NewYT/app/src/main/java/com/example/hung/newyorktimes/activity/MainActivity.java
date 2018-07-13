@@ -1,23 +1,28 @@
 package com.example.hung.newyorktimes.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hung.newyorktimes.R;
@@ -29,36 +34,34 @@ import com.example.hung.newyorktimes.network.ArticleResponse;
 import com.example.hung.newyorktimes.network.ArticleRestClient;
 import com.example.hung.newyorktimes.network.ArticlesCallback;
 import com.example.hung.newyorktimes.network.Error;
-import com.example.hung.newyorktimes.utils.EndRecyclerViewScrollListener;
+import com.example.hung.newyorktimes.utils.EndlessRecyclerViewScrollListener;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
-
-import static com.example.hung.newyorktimes.utils.ArticlesConstants.FILTER;
-
 import static com.example.hung.newyorktimes.utils.ArticlesConstants.BEGIN_DATE;
+import static com.example.hung.newyorktimes.utils.ArticlesConstants.FILTER;
 import static com.example.hung.newyorktimes.utils.ArticlesConstants.NEWS_DESK;
 import static com.example.hung.newyorktimes.utils.ArticlesConstants.SORT;
 
 
-public class MainActivity extends AppCompatActivity implements ArticleRecyclerViewAdapter.OnArticleRecyclerViewAdapterListener, FilterFragment.SaveDialogListener {
 
+public class MainActivity extends AppCompatActivity implements ArticleRecyclerViewAdapter.OnArticleRecyclerViewAdapterListener, FilterFragment.SaveDialogListener{
 
     private static final String TAG_LOG = MainActivity.class.getCanonicalName();
 
-    private RecyclerView mRecyclerViewArtcles;
+    private RecyclerView mRecyclerViewArticles;
     SharedPreferences filterPrefs;
     String mBeginDate;
     String mSortOrder;
     HashSet<String> mNewsDeskValues;
     ArrayList<Article> mArticles;
-    int mPage = 0;
-    private ArticleRecyclerViewAdapter mRecyclerArtcleArrayAdapter;
+    int mPage=0;
+    private ArticleRecyclerViewAdapter mRecyclerArticleArrayAdapter;
     StaggeredGridLayoutManager mLayoutManager;
-    EndRecyclerViewScrollListener mEndlessListener;
+    EndlessRecyclerViewScrollListener mEndlessListener;
 
     private Toolbar toolbar;
     MenuItem searchItem, filterItem;
@@ -67,13 +70,13 @@ public class MainActivity extends AppCompatActivity implements ArticleRecyclerVi
     private SearchView searchView;
 
     @Override
-    protected void onCreate(Bundle saveInstanceState) {
-        super.onCreate(saveInstanceState);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        //checkConnection();
+        //isNetworkAvailable();
         setupViews();
-
     }
-
 
     public void getFilterFromSharedPreferences() {
         filterPrefs = getSharedPreferences(FILTER, 0);
@@ -89,41 +92,42 @@ public class MainActivity extends AppCompatActivity implements ArticleRecyclerVi
 
         dlgFilter = new FilterFragment();
 
-
-        //set up RecyclerView
-        mRecyclerViewArtcles = (RecyclerView) findViewById(R.id.rvItems);
-        mRecyclerViewArtcles.setHasFixedSize(true);
+        // setup RecyclerView
+        mRecyclerViewArticles = (RecyclerView) findViewById(R.id.rvItem);
+        mRecyclerViewArticles.setHasFixedSize(true);
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerViewArtcles.setLayoutManager(mLayoutManager);
+        mRecyclerViewArticles.setLayoutManager(mLayoutManager);
 
-        mRecyclerArtcleArrayAdapter = new ArticleRecyclerViewAdapter(mArticles, this);
-        mRecyclerViewArtcles.setAdapter(mRecyclerArtcleArrayAdapter);
+        mRecyclerArticleArrayAdapter = new ArticleRecyclerViewAdapter(mArticles, this);
+        mRecyclerViewArticles.setAdapter(mRecyclerArticleArrayAdapter);
 
-
-        mEndlessListener = new EndRecyclerViewScrollListener(mLayoutManager) {
+        mEndlessListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
             @Override
-            public void onLoadMore(int page, int totalItemCount) {
+            public void onLoadMore(int page, int totalItemsCount) {
                 Log.d(TAG_LOG, "loadNextPage: " + String.valueOf(page));
                 if (page > 100) {
-                    Toast.makeText(MainActivity.this, "Can not loading the artcles.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,getString(R.string.error_loading),Toast.LENGTH_LONG).show();
+
                 } else {
                     loadArticles(page);
-                    mRecyclerArtcleArrayAdapter.notifyDataSetChanged();
+                    mRecyclerArticleArrayAdapter.notifyDataSetChanged();
+
                 }
             }
         };
-        mRecyclerViewArtcles.addOnScrollListener(mEndlessListener);
+        mRecyclerViewArticles.addOnScrollListener(mEndlessListener);
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.interface_search, menu);
-        searchItem = menu.findItem(R.id.action_search);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
         filterItem = menu.findItem(R.id.action_filter);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint(getString(R.string.hint_search));
-
+        //int searchEditId =R.id.search_src_text;
         EditText et = (EditText) searchView.findViewById(R.id.search_src_text);
         et.setTextColor(Color.WHITE);
         et.setHintTextColor(Color.WHITE);
@@ -134,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements ArticleRecyclerVi
                 mFilter = query;
                 searchView.clearFocus();
                 setTitle(query);
-
                 loadArticles(0);
                 return true;
             }
@@ -144,72 +147,82 @@ public class MainActivity extends AppCompatActivity implements ArticleRecyclerVi
                 return false;
             }
         });
-        //noinspection deprecation,deprecation
-        MenuItemCompat.setOnActionExpandListener(searchItem,
-                new MenuItemCompat.OnActionExpandListener() {
-                    @Override
-                    public boolean onMenuItemActionExpand(MenuItem menuItem) {
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                return false;
+            }
+        });
 
-                        filterItem.setVisible(false);
-                        searchView.setQuery(mFilter, false);
-                        return true;
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                filterItem.setVisible(false);
+                searchView.setQuery(mFilter,false);
+                return true;
+            }
 
-                    }
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                filterItem.setVisible(true);
+                return true;
+            }
+        });
 
-                    @Override
-                    public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                        filterItem.setVisible(true);
-                        return true;
-                    }
-                });
+
+
+
+
         return true;
-
     }
 
     @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
             case R.id.action_search:
                 filterItem.setVisible(false);
+
                 return true;
+
             case R.id.action_filter:
                 getFilterFromSharedPreferences();
                 startFilterFragmentDialog();
+
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+
     }
 
     private void startFilterFragmentDialog() {
         FragmentManager fm = getSupportFragmentManager();
-
-        FilterFragment filterSittingsDialogFragment = FilterFragment.newInstance(mBeginDate, mSortOrder, mNewsDeskValues);
-        filterSittingsDialogFragment.show(fm, "filter_fragment");
-
+        FilterFragment filterSettingsDialogFragment = FilterFragment.newInstance(mBeginDate,mSortOrder, mNewsDeskValues);
+        filterSettingsDialogFragment.show(fm,"filter_fragment");
     }
 
-    public String getNewsDeskFilterQuery() {
+    public String getNewsDeskFilterQuery(){
         String values = "";
-        for (String value : mNewsDeskValues) {
-            values = value.concat("\"" + value + "\"").concat(" ");
-
+        for(String value:mNewsDeskValues){
+            values = values.concat("\""+value+"\"").concat(" ");
         }
         return new String(NEWS_DESK +":("+values+")");
     }
 
-    public void loadArticles(final int page) {
-        Log.d(TAG_LOG, "loadArticles =" + page);
+    private void loadArticles(final int page) {
+        Log.d (TAG_LOG, "loadArticles="+page);
 
-        final ArticleRequestParams requestParams = new ArticleRequestParams();
+        ArticleRequestParams requestParams = new ArticleRequestParams();
 
         if (mFilter != null && !"".equals(mFilter)) {
+
             requestParams.setPage(page);
             requestParams.setQuery(mFilter);
-
         }
 
         if (mBeginDate != null && !"".equals(mBeginDate)) {
@@ -219,10 +232,14 @@ public class MainActivity extends AppCompatActivity implements ArticleRecyclerVi
         if (mSortOrder != null && !"".equals(mSortOrder)) {
             requestParams.setSortOrder(mSortOrder);
         }
+
         if (mNewsDeskValues != null && mNewsDeskValues.size() >= 1) {
             requestParams.setNewsDesk(getNewsDeskFilterQuery());
         }
+
         ArticleRestClient.getArticles(requestParams, new ArticlesCallback() {
+
+
             @Override
             public void onSuccess(ArticleResponse response) {
 
@@ -232,31 +249,32 @@ public class MainActivity extends AppCompatActivity implements ArticleRecyclerVi
                     }
                     if (mArticles == null) {
                         mArticles = new ArrayList<>();
-
                     }
                     mArticles.addAll(response.getArticles());
                     Log.d(TAG_LOG, "addall");
-                    mRecyclerArtcleArrayAdapter.notifyDataSetChanged(mArticles);
+                    mRecyclerArticleArrayAdapter.notifyDataSetChanged(mArticles);
 
                     if (page == 0) {
-                        mRecyclerViewArtcles.scrollToPosition(0);
+                        mRecyclerViewArticles.scrollToPosition(0);
                     }
-
-
                 }
+
             }
 
             @Override
             public void onError(Error error) {
 
             }
+
+
         });
     }
 
-    @Override
-    public void selectArticle(Article article) {
 
-        Intent intent = new Intent(MainActivity.this, ListActivity.class);
+    @Override
+    public void selectArticle (Article article){
+
+        Intent intent = new Intent(MainActivity.this, com.example.hung.newyorktimes.activity.ListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("article", Parcels.wrap(article));
         intent = intent.putExtras(bundle);
@@ -269,11 +287,11 @@ public class MainActivity extends AppCompatActivity implements ArticleRecyclerVi
     public void onFinishEditDialog(String beginDate, String sortOrder, HashSet<String> newsDeskValueSet) {
         mBeginDate = beginDate;
         mSortOrder = sortOrder;
-        mNewsDeskValues = newsDeskValueSet;
+        mNewsDeskValues =  newsDeskValueSet;
 
         SharedPreferences.Editor editor = filterPrefs.edit();
         editor.putString(SORT, sortOrder);
-        editor.putString(BEGIN_DATE, beginDate);
+        editor.putString(BEGIN_DATE,beginDate);
         editor.putStringSet(NEWS_DESK, newsDeskValueSet);
         editor.commit();
 
@@ -283,7 +301,38 @@ public class MainActivity extends AppCompatActivity implements ArticleRecyclerVi
 
 
     }
+//    protected boolean isOnline() {
+//        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+//        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//    public void checkConnection(){
+//        if(isOnline()){
+//            Toast.makeText(MainActivity.this, "You are connected to Internet", Toast.LENGTH_SHORT).show();
+//        }else{
+//           // Toast.makeText(MainActivity.this, "Not to Internet", Toast.LENGTH_LONG).show();
+//            Snackbar snackbar = Snackbar
+//                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
+//                    .setAction("RETRY", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                        }
+//                    });
+//
+//            // Changing message text color
+//            snackbar.setActionTextColor(Color.RED);
+//
+//            // Changing action button text color
+//            View sbView = snackbar.getView();
+//            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+//            textView.setTextColor(Color.YELLOW);
+//            snackbar.show();
+//        }
+//    }
+
 
 }
-
-

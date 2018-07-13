@@ -8,7 +8,6 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
         android:orderInCategory="7"
-        android:onClick="onSearch"
         app:showAsAction="always|collapseActionView"
         android:title="Search"
         app:actionViewClass="android.support.v7.widget.SearchView" />
@@ -16,9 +15,6 @@
         android:id="@+id/action_filter"
         android:icon="@drawable/ic_action_name"
         android:orderInCategory="7"
-        android:onClick="onFilter"
         android:title="Filter"
-        app:showAsAction="always|collapseActionView"  />
-
-
+        app:showAsAction="always|collapseActionView" />
 </menu>

@@ -18,22 +18,25 @@ public class ArticleRestClient {
     private static AsyncHttpClient client = new AsyncHttpClient();
 
 
-    public static void getArticles (ArticleRequestParams requestParams, final ArticlesCallback callback) {
+    public static void getArticles(ArticleRequestParams requestParams, final ArticlesCallback callback) {
+
         RequestParams params = new RequestParams();
-        params.put("api_key", API_KEY);
+        params.put("api-key", API_KEY);
         params.put("page", requestParams.getPage());
-        params.put("Query", requestParams.getQuery());
+        params.put("q", requestParams.getQuery());
 
 
-        if(requestParams.getBeginDate() != null){
+        if (requestParams.getBeginDate() != null) {
             params.put("begin_date", requestParams.getBeginDate());
         }
-        if (requestParams.getSortOrder() != null){
+        if (requestParams.getSortOrder() != null) {
             params.put("sort", requestParams.getSortOrder());
         }
-        if(requestParams.getNewsDesk() != null){
-            params.put("nd", requestParams.getNewsDesk());
+        if (requestParams.getNewsDesk() != null) {
+            params.put("fq", requestParams.getNewsDesk());
         }
+
+
         client.get(BASE_URL, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -43,23 +46,59 @@ public class ArticleRestClient {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Gson gson = new GsonBuilder().create();
+                // Define Response class to correspond to the JSON response returned
                 gson.fromJson(responseString, ArticleResponse.class);
 
-                try{
+                try {
                     JsonParser parser = new JsonParser();
                     JsonObject jsonObject = parser.parse(responseString).getAsJsonObject();
                     gson = new GsonBuilder()
                             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                             .create();
-                    ArticleResponse articleResponse = gson.fromJson(jsonObject.get("response"),ArticleResponse.class);
+                    ArticleResponse articleResponse = gson.fromJson(jsonObject.get("response"), ArticleResponse.class);
                     callback.onSuccess(articleResponse);
-
-                }catch (JsonSyntaxException ex){
+                } catch (JsonSyntaxException ex) {
                     ex.printStackTrace();
-                    callback.onError( new Error(ex.getMessage()));
+                    callback.onError(new Error(ex.getMessage()));
                 }
             }
+
         });
+
+           /* @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //Log.d ("DEBUG", response.toString());
+
+                JSONArray articleJsonResults = null;
+                ArrayList<Article> articles = new ArrayList<>();
+
+                try {
+
+                    articleJsonResults = response.getJSONObject("response"). getJSONArray("docs");
+                    Log.d ("DEBUG", articleJsonResults.toString());
+                    for (int i = 0; i < articleJsonResults.length(); i++) {
+
+                        articles.add(new Article(articleJsonResults.getJSONObject(i)));
+                    }
+                    ArticleResponse articleResponse = new ArticleResponse();
+                    articleResponse.setArticleJsonResults(articleJsonResults);
+                    articleResponse.setArticles(articles);
+                    callback.onSuccess(articleResponse);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    callback.onError(new Error(e.getMessage()));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                callback.onError(new Error(throwable.getMessage()));
+            }
+
+
+        });*/
+
 
     }
 }

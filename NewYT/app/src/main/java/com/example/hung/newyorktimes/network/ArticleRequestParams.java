@@ -2,22 +2,23 @@ package com.example.hung.newyorktimes.network;
 
 import com.example.hung.newyorktimes.utils.ArticlesFilter;
 
-public class  ArticleRequestParams{
+public class ArticleRequestParams {
+
     private int page;
 
     private String query;
 
+    //private Filter filter;
     String beginDate;
     String sortOrder;
     String newsDesk;
-
     private ArticlesFilter filter;
 
-    public String getBeginDate(){
+    public String getBeginDate() {
         return beginDate;
-
     }
-    public void setBeginDate(String beginDate){
+
+    public void setBeginDate(String beginDate) {
         this.beginDate = beginDate;
     }
 
@@ -29,32 +30,40 @@ public class  ArticleRequestParams{
         this.sortOrder = sortOrder;
     }
 
-    public String getNewsDesk(){
+    public String getNewsDesk() {
         return newsDesk;
     }
-    public void setNewsDesk(String newsDesk){
+
+    public void setNewsDesk(String newsDesk) {
         this.newsDesk = newsDesk;
     }
-    public ArticleRequestParams(){
+
+
+    public ArticleRequestParams() {
 
     }
-    public int getPage(){
+
+    public int getPage() {
         return page;
     }
-    public void setPage(int page){
+
+    public void setPage(int page) {
         this.page = page;
     }
-    public String getQuery(){
+
+    public String getQuery() {
         return query;
     }
-    public void setQuery(String query){
+
+    public void setQuery(String query) {
         this.query = query;
     }
 
     public ArticlesFilter getFilter() {
         return filter;
     }
-    public void setFilter(ArticlesFilter filter){
+
+    public void setFilter(ArticlesFilter filter) {
         this.filter = filter;
     }
 }

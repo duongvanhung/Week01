@@ -22,7 +22,7 @@
             android:text="Begin Date"/>
 
          <EditText
-             android:id="@+id/begindates"
+             android:id="@+id/etBeginDate"
              android:layout_width="0dp"
              android:layout_height="wrap_content"
              android:minLines="0"
@@ -70,7 +70,7 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/newDest"
+            android:id="@+id/tvNewsDesk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -82,24 +82,24 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/newDest"
+            android:layout_toRightOf="@+id/tvNewsDesk"
             android:layout_weight= "5"
             android:orientation="vertical">
             <CheckBox
-                android:id="@+id/tvArts"
+                android:id="@+id/chkArts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text ="Arts"/>
             <CheckBox
-                android:id="@+id/tvFashionStyle"
+                android:id="@+id/chkFashion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fashion_style"/>
             <CheckBox
-                android:id="@+id/tvSport"
+                android:id="@+id/chkSports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text ="@string/Sports"/>
+                android:text ="@string/sports"/>
 
         </LinearLayout>
 

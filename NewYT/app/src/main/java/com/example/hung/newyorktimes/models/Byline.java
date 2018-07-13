@@ -2,10 +2,13 @@ package com.example.hung.newyorktimes.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Byline {
 
     @SerializedName("original")
-    private String original;
+     String original;
 
     public Byline() {}
 

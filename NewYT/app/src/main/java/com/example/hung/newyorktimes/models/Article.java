@@ -1,200 +1,98 @@
 package com.example.hung.newyorktimes.models;
-
-
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-import java.util.List;
+import org.parceler.Parcel;
 
-public class Article {
+import java.util.ArrayList;
+import java.util.Date;
+
+
+
+@Parcel
+public class Article{
+
 
     @SerializedName("web_url")
-    @Expose
-    private String webUrl;
-    @SerializedName("snippet")
-    @Expose
-    private String snippet;
-    @SerializedName("print_page")
-    @Expose
-    private String printPage;
+    String mWebURL;
 
-    @SerializedName("source")
-    @Expose
-    private String source;
-    @SerializedName("multimedia")
-    @Expose
-    private List<Multimedium> multimedia ;
     @SerializedName("headline")
-    @Expose
-    private Headline headline;
-    @SerializedName("keywords")
-    @Expose
-    private List<Keyword> keywords = null;
+    Headline mHeadline;
+
+    @SerializedName("url")
+    String mThumbNail;
+
     @SerializedName("pub_date")
-    @Expose
-    private Date pubDate;
-    @SerializedName("document_type")
-    @Expose
-    private String documentType;
-    @SerializedName("news_desk")
-    @Expose
-    private String newsDesk;
+    Date mPubDate;
+
     @SerializedName("byline")
-    @Expose
-    private Byline byline;
-    @SerializedName("type_of_material")
-    @Expose
-    private String typeOfMaterial;
-    @SerializedName("_id")
-    @Expose
-    private String id;
-    @SerializedName("word_count")
-    @Expose
-    private int wordCount;
-    @SerializedName("score")
-    @Expose
-    private int score;
-    @SerializedName("section_name")
-    @Expose
-    private String sectionName;
+    Byline mByLine;
 
-    public String getWebUrl() {
-        return webUrl;
+    @SerializedName("news_desk")
+    String mNewsDesk;
+
+    @SerializedName("multimedia")
+    ArrayList<Multimedia> mMultimedia;
+
+
+    public Article(){
+
     }
 
+
+    public String getWebURL() {
+        return mWebURL;
+    }
     public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
-    }
-
-    public String getSnippet() {
-        return snippet;
-    }
-
-    public void setSnippet(String snippet) {
-        this.snippet = snippet;
-    }
-
-    public String getPrintPage() {
-        return printPage;
-    }
-
-    public void setPrintPage(String printPage) {
-        this.printPage = printPage;
-    }
-
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public List<Multimedium> getMultimedia() {
-        return multimedia;
-    }
-
-    public void setMultimedia(List<Multimedium> multimedia) {
-        this.multimedia = multimedia;
+        this.mWebURL = mWebURL;
     }
 
     public Headline getHeadline() {
-        return headline;
+        return mHeadline;
     }
 
-    public void setHeadline(Headline headline) {
-        this.headline = headline;
+    public void setHeadline(Headline mHeadline) {
+        this.mHeadline = mHeadline;
     }
 
-    public List<Keyword> getKeywords() {
-        return keywords;
+
+    public ArrayList<Multimedia> getMultimedia() {
+        return mMultimedia;
     }
 
-    public void setKeywords(List<Keyword> keywords) {
-        this.keywords = keywords;
+    public void setMultimedia(ArrayList<Multimedia> mMultimedia) {
+        this.mMultimedia = mMultimedia;
     }
+
 
     public Date getPubDate() {
-        return pubDate;
+        return mPubDate;
     }
 
-    public void setPubDate(Date pubDate) {
-        this.pubDate = pubDate;
+    public void setPubDate(Date mPubDate) {
+        this.mPubDate = mPubDate;
     }
 
-    public String getDocumentType() {
-        return documentType;
+
+    public Byline getByLine() {
+        return mByLine;
     }
 
-    public void setDocumentType(String documentType) {
-        this.documentType = documentType;
+    public void setByLine(Byline mByLine) {
+        this.mByLine = mByLine;
     }
 
-    public String getNewsDesk() {
-        return newsDesk;
-    }
 
-    public void setNewsDesk(String newsDesk) {
-        this.newsDesk = newsDesk;
-    }
 
-    public Byline getByline() {
-        return byline;
-    }
-
-    public void setByline(Byline byline) {
-        this.byline = byline;
-    }
-
-    public String getTypeOfMaterial() {
-        return typeOfMaterial;
-    }
-
-    public void setTypeOfMaterial(String typeOfMaterial) {
-        this.typeOfMaterial = typeOfMaterial;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getWordCount() {
-        return wordCount;
-    }
-
-    public void setWordCount(int wordCount) {
-        this.wordCount = wordCount;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public String getSectionName() {
-        return sectionName;
-    }
-
-    public void setSectionName(String sectionName) {
-        this.sectionName = sectionName;
-    }
     public boolean hasImages() {
-        return this.multimedia != null && this.multimedia.size() > 0;
+        return this.mMultimedia != null && this.mMultimedia.size() > 0;
     }
 
-    public Multimedium getFirstImageFromMultimedia() {
-        if (this.multimedia != null && this.multimedia.size() > 0) {
-            return this.multimedia.get(0);
+    public Multimedia getFirstImageFromMultimedia() {
+        if (this.mMultimedia != null && this.mMultimedia.size() > 0) {
+            return this.mMultimedia.get(0);
         }
         return null;
     }
+
+
 }

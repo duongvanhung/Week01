@@ -3,15 +3,16 @@ package com.example.hung.newyorktimes.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Headline {
 
     @SerializedName("main")
-
-    private String main;
+    String main;
 
     @SerializedName("name")
-
-    private String name;
+    String name;
 
     public Headline() {}
 
@@ -31,14 +32,13 @@ public class Headline {
         this.name = name;
     }
 
-
-    public String getTitle(){
-        if(getMain() != null && !"".equals(getMain())){
+    public String getTitle() {
+        if (getMain() != null && !"".equals(getMain())) {
             return getMain();
-        }else{
+        } else {
             return getName();
         }
-
     }
+
 
 }
